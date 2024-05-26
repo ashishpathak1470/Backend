@@ -18,7 +18,6 @@ app.use(function(req, res, next){
 // template engine
 app.set("view engine", "ejs");
 
-// routes
 app.get('/', function (req, res) {
   res.render('index', {age :12})
 })
@@ -30,7 +29,7 @@ app.get('/contact', function (req, res) {
 
 
 
-
+// routes
 app.get('/profile', function (req, res) {
     res.send('This is the profile page')
 })
@@ -38,6 +37,19 @@ app.get('/profile', function (req, res) {
 // dynamic routes
 app.get('/profile/:username', function (req, res) {
   res.send(`This is the ${req.params.username} profile`)
+})
+
+// error handlers
+app.get("/error", function (req, res,next) {
+  throw Error ("Error")
+})
+
+app.use(function errorHandler (err, req, res, next) {
+  if (res.headersSent) {
+    return next(err)
+  }
+  res.status(500)
+  res.render('error', { error: err })
 })
 
 
