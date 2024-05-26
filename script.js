@@ -7,6 +7,9 @@ app.use(function(req, res, next) {
     next();
 })
 
+// static files
+app.use(express.static('./public'));
+
 app.use(function(req, res, next){
   console.log("This is the middleware")
   next();
